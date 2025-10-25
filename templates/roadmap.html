@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="mt-4">
+  {% if error %}
+    <div class="alert alert-danger">{{ error }}</div>
+  {% else %}
+    <h2>{{ field }} Roadmap</h2>
+    <hr>
+
+    {% for step in roadmap %}
+      <div class="card my-3">
+        <div class="card-body">
+          <h5 class="card-title">{{ step.stage }} — {{ step.topic }}</h5>
+          {% if step.resource %}
+            <p><strong>Resource:</strong> <a href="{{ step.link }}" target="_blank">{{ step.resource }}</a></p>
+          {% endif %}
+        </div>
+      </div>
+    {% endfor %}
+  {% endif %}
+</div>
+{% endblock %}

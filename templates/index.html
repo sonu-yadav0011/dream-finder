@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="text-center">
+  <h1 class="mb-4">Find Your Computer Science Roadmap</h1>
+  <form action="/generate" method="post">
+    <input name="field" type="text" class="form-control w-50 mx-auto" placeholder="e.g., web development, machine learning" required>
+    <button type="submit" class="btn btn-primary mt-3">Generate Roadmap</button>
+  </form>
+
+  <div class="mt-4">
+    <p>Try:</p>
+    <button class="btn btn-outline-secondary m-1" onclick="fillField('web development')">Web Development</button>
+    <button class="btn btn-outline-secondary m-1" onclick="fillField('machine learning')">Machine Learning</button>
+  </div>
+</div>
+
+<script>
+function fillField(text) {
+  document.querySelector('input[name="field"]').value = text;
+}
+</script>
+{% endblock %}

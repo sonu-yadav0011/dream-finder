@@ -1,23 +1,44 @@
 {% extends "layout.html" %}
 
 {% block content %}
-<div class="text-center">
-  <h1 class="mb-4">Find Your Computer Science Roadmap</h1>
-  <form action="/generate" method="post">
-    <input name="field" type="text" class="form-control w-50 mx-auto" placeholder="e.g., web development, machine learning" required>
-    <button type="submit" class="btn btn-primary mt-3">Generate Roadmap</button>
-  </form>
+<main class="hero-section">
+    <div class="container">
+        <h1>Find Your Learning Journey</h1>
+        <p class="subtitle">Explore roadmaps in any field</p>
+        <div class="search-box">
+            <form action="/generate" method="post">
+                <input name="field" type="text" class="form-control" placeholder="e.g., Computer Science, Medicine, Culinary Arts..." required>
+                <button type="submit" class="generate-btn">Generate Roadmap</button>
+            </form>
+        </div>
 
-  <div class="mt-4">
-    <p>Try:</p>
-    <button class="btn btn-outline-secondary m-1" onclick="fillField('web development')">Web Development</button>
-    <button class="btn btn-outline-secondary m-1" onclick="fillField('machine learning')">Machine Learning</button>
-  </div>
-</div>
+        <div class="popular-fields">
+            <h2>Popular Fields</h2>
+            <div class="field-grid">
+                <a href="#" class="field-card" onclick="fillField('Computer Science')">
+                    <i class="fas fa-laptop-code"></i>
+                    <span>Computer Science</span>
+                </a>
+                <a href="#" class="field-card" onclick="fillField('Medicine')">
+                    <i class="fas fa-hand-holding-medical"></i>
+                    <span>Medicine</span>
+                </a>
+                <a href="#" class="field-card" onclick="fillField('Business')">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Business</span>
+                </a>
+                <a href="#" class="field-card" onclick="fillField('Creative Arts')">
+                    <i class="fas fa-palette"></i>
+                    <span>Creative Arts</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</main>
 
 <script>
 function fillField(text) {
-  document.querySelector('input[name="field"]').value = text;
+    document.querySelector('input[name="field"]').value = text;
 }
 </script>
 {% endblock %}

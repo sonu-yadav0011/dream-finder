@@ -1,23 +1,68 @@
 {% extends "layout.html" %}
 
 {% block content %}
-<div class="mt-4">
-  {% if error %}
-    <div class="alert alert-danger">{{ error }}</div>
-  {% else %}
-    <h2>{{ field }} Roadmap</h2>
-    <hr>
+<link rel="stylesheet" href="{{ url_for('static', filename='roadmap.css') }}">
 
-    {% for step in roadmap %}
-      <div class="card my-3">
-        <div class="card-body">
-          <h5 class="card-title">{{ step.stage }} — {{ step.topic }}</h5>
-          {% if step.resource %}
-            <p><strong>Resource:</strong> <a href="{{ step.link }}" target="_blank">{{ step.resource }}</a></p>
-          {% endif %}
+<div class="container mt-4">
+    <section class="hero-section">
+        <h1>Your {{ (field_name | default(field)) | capitalize }} Journey</h1>
+        <p>Explore a step-by-step path to becoming a {{ (field_name | default(field)) | capitalize }} expert</p>
+    </section>
+
+    <section class="roadmap-grid">
+        {% for level in (roadmap_data | default(roadmap)) %}
+        <div class="level-block {% if level.current %}current{% endif %}">
+            <h3>{{ level.level_name }}</h3>
+
+            {% if level.topics %}
+            <div class="topics">
+                <h4>Key Topics:</h4>
+                <ul>
+                    {% for topic in level.topics %}
+                    <li>{{ topic }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+
+            {% if level.languages %}
+            <div class="languages">
+                <h4>Languages/Tools:</h4>
+                <ul>
+                    {% for lang in level.languages %}
+                    <li>{{ lang }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+
+            {% if level.resources_summary %}
+            <div class="resources-summary">
+                <h4>Resource Summary:</h4>
+                <ul>
+                    {% for res_sum in level.resources_summary %}
+                    <li>{{ res_sum }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+
+            {% if level.specific_resources %}
+            <div class="specific-resources">
+                <h4>Specific Resources:</h4>
+                <ul>
+                    {% for resource in level.specific_resources %}
+                    <li>
+                        <a href="{{ resource.resource_link }}" target="_blank" rel="noopener noreferrer">
+                            {{ resource.resource_name }}
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
         </div>
-      </div>
-    {% endfor %}
-  {% endif %}
+        {% endfor %}
+    </section>
 </div>
 {% endblock %}

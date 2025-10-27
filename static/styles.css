@@ -234,19 +234,210 @@ a {
     color: var(--accent-color);
 }
 
-/* Responsive: stack on small screens */
-@media (max-width: 600px) {
-    .search-box form {
-        flex-direction: column;
-        gap: 12px;
-    }
+/* Roadmap page styles (merged from roadmap.css) */
+/* Note: global reset and body rules from roadmap.css were omitted to avoid overriding site-wide settings.
+   These rules only include roadmap-specific selectors so they append cleanly to the existing stylesheet. */
 
-    .search-box input[type="text"] {
-        border-radius: 8px;
-    }
+.hero-section {
+    /* Roadmap-specific adjustments will override earlier hero-section rules where declared below */
+    text-align: center;
+    margin: 30px 0 40px;
+    /* If you want to keep the original homepage hero appearance, move these rules into a page-specific selector */
+}
+.hero-section h1 {
+    font-size: 32px;
+    color: #2c3e50;
+    margin-bottom: 8px;
+}
+.hero-section p {
+    font-size: 16px;
+    color: #666;
+}
 
-    .search-box .generate-btn {
-        border-radius: 8px;
-        width: 100%;
+.roadmap-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+    position: relative;
+    padding-left: 20px;
+}
+.roadmap-grid::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background-color: #ccc;
+    transform: translateX(10px);
+}
+
+.level-block {
+    background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
+    border-radius: 14px;
+    box-shadow: 0 8px 24px rgba(18, 38, 63, 0.08);
+    padding: 22px;
+    position: relative;
+    border: 1px solid rgba(20, 30, 45, 0.06);
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    overflow: visible;
+}
+
+/* subtle hover lift */
+.level-block:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 40px rgba(18, 38, 63, 0.12);
+}
+
+/* timeline dot */
+.level-block::before {
+    content: '';
+    position: absolute;
+    left: -28px;
+    top: 30px;
+    width: 16px;
+    height: 16px;
+    background: linear-gradient(135deg, var(--accent-color), #5aa3e6);
+    border-radius: 50%;
+    border: 3px solid var(--primary-bg);
+    box-shadow: 0 4px 10px rgba(52,152,219,0.15);
+    z-index: 2;
+}
+
+/* header area inside card */
+.level-block .level-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.level-block h3 {
+    font-size: 1.25rem;
+    color: #215a8a;
+    margin: 0;
+    font-weight: 700;
+}
+
+/* small descriptor text */
+.level-block .level-about {
+    color: var(--secondary-text);
+    font-size: 0.95rem;
+    line-height: 1.4;
+    margin-top: 6px;
+}
+
+/* tag list for topics / languages */
+.level-block .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 10px;
+    margin-top: 6px;
+}
+
+.level-block .tag {
+    background: rgba(52,152,219,0.08);
+    color: #145a84;
+    padding: 6px 10px;
+    font-size: 0.85rem;
+    border-radius: 999px;
+    border: 1px solid rgba(52,152,219,0.12);
+}
+
+/* resources area */
+.level-block .specific-resources ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 8px 0 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.level-block .specific-resources a {
+    display: inline-block;
+    background: #f7fbff;
+    color: #1160a6;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(17,96,166,0.08);
+    text-decoration: none;
+    font-weight: 600;
+    transition: background 0.15s ease, transform 0.12s ease;
+}
+
+.level-block .specific-resources a:hover {
+    background: linear-gradient(90deg, rgba(52,152,219,0.08), rgba(42,130,200,0.08));
+    transform: translateY(-2px);
+}
+
+/* smaller headings inside block */
+.level-block h4 {
+    font-size: 0.98rem;
+    color: #2c3e50;
+    margin: 0 0 6px 0;
+    border-bottom: 1px solid #f0f2f4;
+    padding-bottom: 6px;
+}
+
+/* responsive adjustments keep timeline alignment */
+@media (min-width: 768px) {
+    .roadmap-grid {
+        grid-template-columns: 1fr 1fr;
+        grid-auto-flow: dense;
+        padding-left: 0;
     }
+    .roadmap-grid::before {
+        left: 50%;
+        transform: translateX(-1px);
+    }
+    .level-block {
+        margin-left: 0;
+    }
+    .level-block:nth-child(odd) {
+        grid-column: 1;
+        text-align: right;
+        padding-right: 50px;
+    }
+    .level-block:nth-child(even) {
+        grid-column: 2;
+        text-align: left;
+        padding-left: 50px;
+    }
+    .level-block:nth-child(odd)::before {
+        left: auto;
+        right: -28px;
+    }
+    .level-block:nth-child(even)::before {
+        left: -28px;
+        right: auto;
+    }
+    .level-block h4 {
+        margin-right: -20px;
+        padding-right: 20px;
+        margin-left: 0;
+        padding-left: 0;
+    }
+    .level-block:nth-child(odd) .topics,
+    .level-block:nth-child(odd) .languages,
+    .level-block:nth-child(odd) .resources-summary,
+    .level-block:nth-child(odd) .specific-resources {
+        padding-left: 0;
+        padding-right: 20px;
+    }
+    .level-block:nth-child(odd) ul {
+        list-style-position: inside;
+    }
+}
+
+/* fallback spacing if lists are empty */
+.level-block .topics ul,
+.level-block .languages ul,
+.level-block .resources-summary ul {
+    margin: 0;
+    padding-left: 18px;
 }

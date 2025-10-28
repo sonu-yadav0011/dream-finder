@@ -299,8 +299,8 @@ a {
     position: absolute;
     left: -28px;
     top: 30px;
-    width: 16px;
-    height: 16px;
+    width: 24px;
+    height: 24px;
     background: linear-gradient(135deg, var(--accent-color), #5aa3e6);
     border-radius: 50%;
     border: 3px solid var(--primary-bg);
@@ -390,44 +390,55 @@ a {
         grid-template-columns: 1fr 1fr;
         grid-auto-flow: dense;
         padding-left: 0;
+        align-items: start;
+        column-gap: 24px;   /* reduced gap between columns */
     }
     .roadmap-grid::before {
         left: 50%;
         transform: translateX(-1px);
     }
+
     .level-block {
         margin-left: 0;
+        max-width: 520px;
+        width: 100%;
+        justify-self: center;
     }
+
     .level-block:nth-child(odd) {
         grid-column: 1;
-        text-align: right;
-        padding-right: 50px;
+        text-align: left;
+        padding-right: 48px;   /* reduced spacing toward center */
     }
+
     .level-block:nth-child(even) {
         grid-column: 2;
         text-align: left;
-        padding-left: 50px;
+        padding-left: 48px;    /* reduced spacing toward center */
     }
+
     .level-block:nth-child(odd)::before {
         left: auto;
-        right: -28px;
+        right: -64px;          /* move dot closer to card */
     }
     .level-block:nth-child(even)::before {
-        left: -28px;
+        left: -64px;           /* move dot closer to card */
         right: auto;
     }
-    .level-block h4 {
-        margin-right: -20px;
-        padding-right: 20px;
+
+    .level-block h4 { 
+        margin-right: 0;
+        padding-right: 12px;
         margin-left: 0;
         padding-left: 0;
     }
-    .level-block:nth-child(odd) .topics,
+
+    .level-block:nth-child(odd) .topics
     .level-block:nth-child(odd) .languages,
     .level-block:nth-child(odd) .resources-summary,
     .level-block:nth-child(odd) .specific-resources {
         padding-left: 0;
-        padding-right: 20px;
+        padding-right: 12px;
     }
     .level-block:nth-child(odd) ul {
         list-style-position: inside;

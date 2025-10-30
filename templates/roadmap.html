@@ -64,5 +64,13 @@
         </div>
         {% endfor %}
     </section>
+
+    <div class="mt-4 text-center">
+        <a href="{{ url_for('index') }}"
+           class="back-btn"
+           onclick="if (history.length > 1) { history.back(); return false; }">
+            ← Back
+        </a>
+    </div>
 </div>
 {% endblock %}

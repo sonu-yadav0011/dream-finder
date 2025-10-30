@@ -15,22 +15,22 @@
          <div class="popular-fields">
           <h2>Popular Fields</h2>
           <div class="field-grid">
-              <a href="#" class="field-card" onclick="fillField('Machine Learning')">
+              <a href="#" class="field-card" data-field="Machine Learning" onclick="openRoadmap(this)">
                 <i class="fas fa-robot"></i>
                 <span>Machine Learning</span>
               </a>
 
-              <a href="#" class="field-card" onclick="fillField('Web Development')">
+              <a href="#" class="field-card" data-field="Web Development" onclick="openRoadmap(this)">
                 <i class="fas fa-code"></i>
                 <span>Web Development</span>
               </a>
 
-              <a href="#" class="field-card" onclick="fillField('Software Engineering')">
+              <a href="#" class="field-card" data-field="Software Engineering" onclick="openRoadmap(this)">
                 <i class="fas fa-cogs"></i>
                 <span>Software Engineering</span>
               </a>
 
-              <a href="#" class="field-card" onclick="fillField('Data Science')">
+              <a href="#" class="field-card" data-field="Data Science" onclick="openRoadmap(this)">
                 <i class="fas fa-database"></i>
                 <span>Data Science</span>
               </a>
@@ -43,8 +43,41 @@
 </main>
 
 <script>
-function fillField(text) {
-    document.querySelector('input[name="field"]').value = text;
+function openRoadmap(el) {
+    const field = (el && el.dataset && el.dataset.field) ? el.dataset.field : '';
+    if (!field) return;
+    // navigate directly to roadmap page for clicked field
+    window.location.href = '/roadmap/' + encodeURIComponent(field.toLowerCase());
 }
+
+function fillField(text) {
+    const input = document.querySelector('input[name="field"]');
+    if (input) input.value = text;
+}
+
+/*
+ Clear the search input when user returns to this page via the Back button.
+ Uses the pageshow event and navigation info to detect bfcache / back-forward navigation.
+*/
+window.addEventListener('pageshow', function(event) {
+    const input = document.querySelector('input[name="field"]');
+    if (!input) return;
+
+    // Try modern Navigation Timing API first
+    let navType = '';
+    if (performance.getEntriesByType) {
+        const entries = performance.getEntriesByType('navigation');
+        if (entries && entries.length) navType = entries[0].type; // e.g. 'navigate', 'back_forward', 'reload'
+    }
+
+    // Fallback for older browsers: performance.navigation.type === 2 indicates back_forward
+    if (!navType && performance.navigation && performance.navigation.type === 2) {
+        navType = 'back_forward';
+    }
+
+    if (event.persisted || navType === 'back_forward') {
+        input.value = '';
+    }
+});
 </script>
 {% endblock %}

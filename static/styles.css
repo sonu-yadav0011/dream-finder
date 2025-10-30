@@ -452,3 +452,31 @@ a {
     margin: 0;
     padding-left: 18px;
 }
+
+/* Back button container and button — match site styling */
+.mt-4.text-center {
+    margin-top: 1.5rem; /* keep vertical spacing consistent with site */
+    text-align: center;
+}
+
+/* styled back button to match other UI cards/buttons */
+.back-btn {
+    display: inline-block;
+    background-color: #3b7bb8e0;  /* Changed from var(--secondary-bg) to match requested color */
+    color: white;              /* Changed to white for better contrast */
+    border: 1px solid #3b7bb8e0; /* Slightly darker border */
+    padding: 10px 18px;
+    border-radius: 8px;
+    box-shadow: 0 3px 8px var(--shadow-light);
+    transition: background-color 0.18s ease, transform 0.12s ease, box-shadow 0.12s ease;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.back-btn:hover,
+.back-btn:focus {
+    background-color: #4993d6; /* Darker shade for hover */
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(90, 163, 230, 0.2);
+}
